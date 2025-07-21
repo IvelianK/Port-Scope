@@ -1,0 +1,272 @@
+{
+  "21": {
+    "service": "FTP",
+    "protocols": ["TCP"],
+    "risk_level": "Medium",
+    "description_en": "File Transfer Protocol - Transfers files between systems",
+    "description_es": "Protocolo de Transferencia de Archivos - Transfiere archivos entre sistemas",
+    "risk_explanation_en": "FTP transmits data including passwords in plaintext, making it vulnerable to interception. Consider using SFTP or FTPS instead.",
+    "risk_explanation_es": "FTP transmite datos incluyendo contraseñas en texto plano, haciéndolo vulnerable a interceptación. Considere usar SFTP o FTPS en su lugar.",
+    "learn_more_url": "https://owasp.org/www-community/vulnerabilities/Insecure_Transport"
+  },
+  "22": {
+    "service": "SSH",
+    "protocols": ["TCP"],
+    "risk_level": "High",
+    "description_en": "Secure Shell - Remote access and administration protocol",
+    "description_es": "Shell Seguro - Protocolo de acceso remoto y administración",
+    "risk_explanation_en": "SSH provides remote access to your system. If exposed to the internet, attackers may attempt brute force attacks. Use key-based authentication and disable password login.",
+    "risk_explanation_es": "SSH proporciona acceso remoto a su sistema. Si está expuesto a internet, los atacantes pueden intentar ataques de fuerza bruta. Use autenticación basada en claves y deshabilite el login con contraseña.",
+    "learn_more_url": "https://www.sans.org/white-papers/1988/"
+  },
+  "23": {
+    "service": "Telnet",
+    "protocols": ["TCP"],
+    "risk_level": "High",
+    "description_en": "Telnet - Unencrypted remote terminal access",
+    "description_es": "Telnet - Acceso de terminal remoto sin cifrado",
+    "risk_explanation_en": "Telnet transmits all data including passwords in plaintext. This protocol is highly insecure and should be replaced with SSH.",
+    "risk_explanation_es": "Telnet transmite todos los datos incluyendo contraseñas en texto plano. Este protocolo es altamente inseguro y debería ser reemplazado por SSH.",
+    "learn_more_url": "https://owasp.org/www-community/vulnerabilities/Insecure_Transport"
+  },
+  "25": {
+    "service": "SMTP",
+    "protocols": ["TCP"],
+    "risk_level": "Medium",
+    "description_en": "Simple Mail Transfer Protocol - Email sending service",
+    "description_es": "Protocolo Simple de Transferencia de Correo - Servicio de envío de email",
+    "risk_explanation_en": "SMTP can be exploited for spam relay if not properly configured. Ensure authentication is required and access is restricted.",
+    "risk_explanation_es": "SMTP puede ser explotado para retransmisión de spam si no está configurado correctamente. Asegúrese de que se requiera autenticación y el acceso esté restringido.",
+    "learn_more_url": "https://owasp.org/www-community/attacks/Mail_Relay"
+  },
+  "53": {
+    "service": "DNS",
+    "protocols": ["TCP", "UDP"],
+    "risk_level": "Low",
+    "description_en": "Domain Name System - Resolves domain names to IP addresses",
+    "description_es": "Sistema de Nombres de Dominio - Resuelve nombres de dominio a direcciones IP",
+    "risk_explanation_en": "DNS is generally safe but can be exploited for amplification attacks if used as an open resolver. Ensure it's properly configured.",
+    "risk_explanation_es": "DNS es generalmente seguro pero puede ser explotado para ataques de amplificación si se usa como resolver abierto. Asegúrese de que esté configurado correctamente.",
+    "learn_more_url": "https://www.sans.org/white-papers/37031/"
+  },
+  "80": {
+    "service": "HTTP",
+    "protocols": ["TCP"],
+    "risk_level": "Low",
+    "description_en": "Hypertext Transfer Protocol - Standard web traffic",
+    "description_es": "Protocolo de Transferencia de Hipertexto - Tráfico web estándar",
+    "risk_explanation_en": "HTTP is the standard web protocol. Generally safe but transmits data unencrypted. Consider using HTTPS (port 443) for sensitive data.",
+    "risk_explanation_es": "HTTP es el protocolo web estándar. Generalmente seguro pero transmite datos sin cifrar. Considere usar HTTPS (puerto 443) para datos sensibles.",
+    "learn_more_url": "https://owasp.org/www-project-top-ten/"
+  },
+  "110": {
+    "service": "POP3",
+    "protocols": ["TCP"],
+    "risk_level": "Medium",
+    "description_en": "Post Office Protocol v3 - Email retrieval service",
+    "description_es": "Protocolo de Oficina Postal v3 - Servicio de recuperación de email",
+    "risk_explanation_en": "POP3 transmits email credentials in plaintext. Use POP3S (port 995) or IMAP with SSL/TLS instead.",
+    "risk_explanation_es": "POP3 transmite credenciales de email en texto plano. Use POP3S (puerto 995) o IMAP con SSL/TLS en su lugar.",
+    "learn_more_url": "https://owasp.org/www-community/vulnerabilities/Insecure_Transport"
+  },
+  "135": {
+    "service": "Microsoft RPC",
+    "protocols": ["TCP"],
+    "risk_level": "High",
+    "description_en": "Microsoft Remote Procedure Call - Windows system service",
+    "description_es": "Llamada de Procedimiento Remoto de Microsoft - Servicio del sistema Windows",
+    "risk_explanation_en": "RPC can be exploited for various Windows attacks including privilege escalation. Should not be exposed to the internet.",
+    "risk_explanation_es": "RPC puede ser explotado para varios ataques de Windows incluyendo escalación de privilegios. No debería estar expuesto a internet.",
+    "learn_more_url": "https://www.sans.org/white-papers/1691/"
+  },
+  "137": {
+    "service": "NetBIOS Name Service",
+    "protocols": ["UDP"],
+    "risk_level": "High",
+    "description_en": "NetBIOS Name Service - Windows network naming",
+    "description_es": "Servicio de Nombres NetBIOS - Nomenclatura de red Windows",
+    "risk_explanation_en": "NetBIOS can leak information about your Windows network and be used for various attacks. Should be disabled on internet-facing interfaces.",
+    "risk_explanation_es": "NetBIOS puede filtrar información sobre su red Windows y ser usado para varios ataques. Debería estar deshabilitado en interfaces que dan a internet.",
+    "learn_more_url": "https://www.sans.org/white-papers/1675/"
+  },
+  "138": {
+    "service": "NetBIOS Datagram",
+    "protocols": ["UDP"],
+    "risk_level": "High",
+    "description_en": "NetBIOS Datagram Service - Windows network communication",
+    "description_es": "Servicio de Datagramas NetBIOS - Comunicación de red Windows",
+    "risk_explanation_en": "NetBIOS datagram service can be exploited for information gathering and network attacks. Should be disabled on internet-facing interfaces.",
+    "risk_explanation_es": "El servicio de datagramas NetBIOS puede ser explotado para recopilación de información y ataques de red. Debería estar deshabilitado en interfaces que dan a internet.",
+    "learn_more_url": "https://www.sans.org/white-papers/1675/"
+  },
+  "139": {
+    "service": "NetBIOS Session",
+    "protocols": ["TCP"],
+    "risk_level": "High",
+    "description_en": "NetBIOS Session Service - Windows file sharing",
+    "description_es": "Servicio de Sesión NetBIOS - Compartición de archivos Windows",
+    "risk_explanation_en": "NetBIOS session service can expose Windows file shares and be used for lateral movement in networks. Should not be exposed to the internet.",
+    "risk_explanation_es": "El servicio de sesión NetBIOS puede exponer recursos compartidos de Windows y ser usado para movimiento lateral en redes. No debería estar expuesto a internet.",
+    "learn_more_url": "https://www.sans.org/white-papers/1675/"
+  },
+  "143": {
+    "service": "IMAP",
+    "protocols": ["TCP"],
+    "risk_level": "Medium",
+    "description_en": "Internet Message Access Protocol - Email access service",
+    "description_es": "Protocolo de Acceso a Mensajes de Internet - Servicio de acceso a email",
+    "risk_explanation_en": "IMAP transmits credentials in plaintext unless encrypted. Use IMAPS (port 993) for secure email access.",
+    "risk_explanation_es": "IMAP transmite credenciales en texto plano a menos que esté cifrado. Use IMAPS (puerto 993) para acceso seguro al email.",
+    "learn_more_url": "https://owasp.org/www-community/vulnerabilities/Insecure_Transport"
+  },
+  "443": {
+    "service": "HTTPS",
+    "protocols": ["TCP"],
+    "risk_level": "Low",
+    "description_en": "HTTP Secure - Encrypted web traffic",
+    "description_es": "HTTP Seguro - Tráfico web cifrado",
+    "risk_explanation_en": "HTTPS is the secure version of HTTP and is generally safe. Ensure proper SSL/TLS configuration and certificate management.",
+    "risk_explanation_es": "HTTPS es la versión segura de HTTP y es generalmente seguro. Asegúrese de tener una configuración SSL/TLS adecuada y gestión de certificados.",
+    "learn_more_url": "https://owasp.org/www-project-transport-layer-protection-cheat-sheet/"
+  },
+  "445": {
+    "service": "Microsoft-DS (SMB)",
+    "protocols": ["TCP"],
+    "risk_level": "High",
+    "description_en": "Server Message Block - Windows file and printer sharing",
+    "description_es": "Bloque de Mensajes del Servidor - Compartición de archivos e impresoras Windows",
+    "risk_explanation_en": "SMB has been target of major ransomware attacks (WannaCry, NotPetya). Should never be exposed to the internet.",
+    "risk_explanation_es": "SMB ha sido objetivo de importantes ataques de ransomware (WannaCry, NotPetya). Nunca debería estar expuesto a internet.",
+    "learn_more_url": "https://www.sans.org/white-papers/37567/"
+  },
+  "465": {
+    "service": "SMTPS",
+    "protocols": ["TCP"],
+    "risk_level": "Medium",
+    "description_en": "SMTP Secure - Encrypted email sending",
+    "description_es": "SMTP Seguro - Envío de email cifrado",
+    "risk_explanation_en": "SMTPS is more secure than regular SMTP as it uses encryption. Ensure proper authentication and access controls.",
+    "risk_explanation_es": "SMTPS es más seguro que SMTP regular ya que usa cifrado. Asegúrese de tener autenticación adecuada y controles de acceso.",
+    "learn_more_url": "https://owasp.org/www-community/vulnerabilities/Insecure_Transport"
+  },
+  "993": {
+    "service": "IMAPS",
+    "protocols": ["TCP"],
+    "risk_level": "Medium",
+    "description_en": "IMAP Secure - Encrypted email access",
+    "description_es": "IMAP Seguro - Acceso a email cifrado",
+    "risk_explanation_en": "IMAPS is the secure version of IMAP and is generally safe. Ensure strong authentication and proper SSL/TLS configuration.",
+    "risk_explanation_es": "IMAPS es la versión segura de IMAP y es generalmente seguro. Asegúrese de tener autenticación fuerte y configuración SSL/TLS adecuada.",
+    "learn_more_url": "https://owasp.org/www-project-transport-layer-protection-cheat-sheet/"
+  },
+  "995": {
+    "service": "POP3S",
+    "protocols": ["TCP"],
+    "risk_level": "Medium",
+    "description_en": "POP3 Secure - Encrypted email retrieval",
+    "description_es": "POP3 Seguro - Recuperación de email cifrada",
+    "risk_explanation_en": "POP3S is the secure version of POP3 and is generally safe. Ensure strong authentication and proper SSL/TLS configuration.",
+    "risk_explanation_es": "POP3S es la versión segura de POP3 y es generalmente seguro. Asegúrese de tener autenticación fuerte y configuración SSL/TLS adecuada.",
+    "learn_more_url": "https://owasp.org/www-project-transport-layer-protection-cheat-sheet/"
+  },
+  "1433": {
+    "service": "MS SQL Server",
+    "protocols": ["TCP"],
+    "risk_level": "High",
+    "description_en": "Microsoft SQL Server database service",
+    "description_es": "Servicio de base de datos Microsoft SQL Server",
+    "risk_explanation_en": "SQL Server should never be exposed to the internet. Use VPN or SSH tunneling for remote access. Enable encryption and strong authentication.",
+    "risk_explanation_es": "SQL Server nunca debería estar expuesto a internet. Use VPN o túneles SSH para acceso remoto. Habilite cifrado y autenticación fuerte.",
+    "learn_more_url": "https://owasp.org/www-project-top-ten/"
+  },
+  "1434": {
+    "service": "MS SQL Monitor",
+    "protocols": ["UDP"],
+    "risk_level": "High",
+    "description_en": "Microsoft SQL Server Monitor/Browser service",
+    "description_es": "Servicio Monitor/Navegador de Microsoft SQL Server",
+    "risk_explanation_en": "SQL Server browser service can reveal database information to attackers. Should be disabled if not needed or restricted to internal networks.",
+    "risk_explanation_es": "El servicio navegador de SQL Server puede revelar información de la base de datos a atacantes. Debería estar deshabilitado si no es necesario o restringido a redes internas.",
+    "learn_more_url": "https://www.sans.org/white-papers/1281/"
+  },
+  "1723": {
+    "service": "PPTP VPN",
+    "protocols": ["TCP"],
+    "risk_level": "Medium",
+    "description_en": "Point-to-Point Tunneling Protocol VPN",
+    "description_es": "VPN del Protocolo de Túnel Punto a Punto",
+    "risk_explanation_en": "PPTP has known security vulnerabilities and weak encryption. Consider using more secure VPN protocols like OpenVPN or IKEv2.",
+    "risk_explanation_es": "PPTP tiene vulnerabilidades de seguridad conocidas y cifrado débil. Considere usar protocolos VPN más seguros como OpenVPN o IKEv2.",
+    "learn_more_url": "https://www.sans.org/white-papers/1969/"
+  },
+  "3306": {
+    "service": "MySQL",
+    "protocols": ["TCP"],
+    "risk_level": "Medium",
+    "description_en": "MySQL database service",
+    "description_es": "Servicio de base de datos MySQL",
+    "risk_explanation_en": "MySQL should not be exposed to the internet without proper security measures. Use SSL/TLS encryption and restrict access by IP.",
+    "risk_explanation_es": "MySQL no debería estar expuesto a internet sin medidas de seguridad adecuadas. Use cifrado SSL/TLS y restrinja el acceso por IP.",
+    "learn_more_url": "https://owasp.org/www-project-top-ten/"
+  },
+  "3389": {
+    "service": "Remote Desktop Protocol",
+    "protocols": ["TCP"],
+    "risk_level": "High",
+    "description_en": "Windows Remote Desktop Protocol",
+    "description_es": "Protocolo de Escritorio Remoto de Windows",
+    "risk_explanation_en": "RDP is frequently targeted by attackers for brute force attacks and exploits. Use VPN, change default port, and enable Network Level Authentication.",
+    "risk_explanation_es": "RDP es frecuentemente atacado por atacantes para ataques de fuerza bruta y exploits. Use VPN, cambie el puerto por defecto y habilite Autenticación a Nivel de Red.",
+    "learn_more_url": "https://www.sans.org/white-papers/36057/"
+  },
+  "5432": {
+    "service": "PostgreSQL",
+    "protocols": ["TCP"],
+    "risk_level": "Medium",
+    "description_en": "PostgreSQL database service",
+    "description_es": "Servicio de base de datos PostgreSQL",
+    "risk_explanation_en": "PostgreSQL should not be exposed to the internet without proper security measures. Use SSL/TLS encryption and restrict access by IP.",
+    "risk_explanation_es": "PostgreSQL no debería estar expuesto a internet sin medidas de seguridad adecuadas. Use cifrado SSL/TLS y restrinja el acceso por IP.",
+    "learn_more_url": "https://owasp.org/www-project-top-ten/"
+  },
+  "5900": {
+    "service": "VNC",
+    "protocols": ["TCP"],
+    "risk_level": "High",
+    "description_en": "Virtual Network Computing - Remote desktop access",
+    "description_es": "Computación de Red Virtual - Acceso de escritorio remoto",
+    "risk_explanation_en": "VNC often uses weak authentication and encryption. Should not be exposed to the internet. Use SSH tunneling or VPN for remote access.",
+    "risk_explanation_es": "VNC a menudo usa autenticación y cifrado débiles. No debería estar expuesto a internet. Use túneles SSH o VPN para acceso remoto.",
+    "learn_more_url": "https://www.sans.org/white-papers/1138/"
+  },
+  "5901": {
+    "service": "VNC-1",
+    "protocols": ["TCP"],
+    "risk_level": "High",
+    "description_en": "Virtual Network Computing Display 1",
+    "description_es": "Computación de Red Virtual Pantalla 1",
+    "risk_explanation_en": "VNC often uses weak authentication and encryption. Should not be exposed to the internet. Use SSH tunneling or VPN for remote access.",
+    "risk_explanation_es": "VNC a menudo usa autenticación y cifrado débiles. No debería estar expuesto a internet. Use túneles SSH o VPN para acceso remoto.",
+    "learn_more_url": "https://www.sans.org/white-papers/1138/"
+  },
+  "8080": {
+    "service": "HTTP Alternate",
+    "protocols": ["TCP"],
+    "risk_level": "Low",
+    "description_en": "Alternative HTTP port for web applications",
+    "description_es": "Puerto HTTP alternativo para aplicaciones web",
+    "risk_explanation_en": "Commonly used for web applications and proxies. Generally safe but ensure proper authentication and input validation if exposed.",
+    "risk_explanation_es": "Comúnmente usado para aplicaciones web y proxies. Generalmente seguro pero asegúrese de tener autenticación adecuada y validación de entrada si está expuesto.",
+    "learn_more_url": "https://owasp.org/www-project-top-ten/"
+  },
+  "8443": {
+    "service": "HTTPS Alternate",
+    "protocols": ["TCP"],
+    "risk_level": "Low",
+    "description_en": "Alternative HTTPS port for secure web applications",
+    "description_es": "Puerto HTTPS alternativo para aplicaciones web seguras",
+    "risk_explanation_en": "Commonly used for secure web applications. Generally safe but ensure proper SSL/TLS configuration and certificate management.",
+    "risk_explanation_es": "Comúnmente usado para aplicaciones web seguras. Generalmente seguro pero asegúrese de tener configuración SSL/TLS adecuada y gestión de certificados.",
+    "learn_more_url": "https://owasp.org/www-project-transport-layer-protection-cheat-sheet/"
+  }
+}
