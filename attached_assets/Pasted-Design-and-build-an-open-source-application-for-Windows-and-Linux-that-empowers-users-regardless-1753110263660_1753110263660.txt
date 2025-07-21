@@ -1,0 +1,74 @@
+Design and build an open-source application for **Windows and Linux** that empowers users—regardless of technical background—to **scan, identify, and understand the security implications of their open local and UPnP ports**. The goal is to promote network hygiene, provide actionable security education, and guide users through mitigating risks in a clear, interactive, and accessible way.
+
+**Specifications:**
+
+- **Multi-platform:** Must work natively on both Windows and Linux.
+- **Open-source:** All code, libraries, and resources under a recognized open-source license.
+- **Language:** The primary interface language should be **English** with complete and polished **Spanish** support. Users should be able to switch languages easily from within the application.
+- **Non-resident:** No background processes or persistent services—runs exclusively on demand.
+- **Port Scanning:**
+  - Scan and report open TCP/UDP ports on the local system.
+  - Detect and clearly report any UPnP-exposed ports on the local network using appropriate libraries or tools.
+- **Port Coverage:**  
+  The application must recognize and display the following commonly used or historically risky ports, both system and application level, grouped by risk:
+
+| Port           | Protocol | Service                  | Risk Level   |
+|----------------|----------|--------------------------|-------------|
+| 21             | TCP      | FTP                      | Medium      |
+| 22             | TCP      | SSH                      | High        |
+| 23             | TCP      | Telnet                   | High        |
+| 25             | TCP      | SMTP                     | Medium      |
+| 53             | TCP/UDP  | DNS                      | Low         |
+| 80             | TCP      | HTTP                     | Low         |
+| 110            | TCP      | POP3                     | Medium      |
+| 135            | TCP      | Microsoft RPC            | High        |
+| 137-139        | TCP/UDP  | NetBIOS                  | High        |
+| 143            | TCP      | IMAP                     | Medium      |
+| 443            | TCP      | HTTPS                    | Low         |
+| 445            | TCP      | Microsoft-DS (SMB)       | High        |
+| 465            | TCP      | SMTPS                    | Medium      |
+| 993            | TCP      | IMAPS                    | Medium      |
+| 995            | TCP      | POP3S                    | Medium      |
+| 1433-1434      | TCP      | MS SQL Server            | High        |
+| 1723           | TCP      | PPTP VPN                 | Medium      |
+| 3306           | TCP      | MySQL                    | Medium      |
+| 3389           | TCP      | Remote Desktop Protocol  | High        |
+| 5432           | TCP      | PostgreSQL               | Medium      |
+| 5900-5901      | TCP      | VNC                      | High        |
+| 8080, 8443     | TCP      | HTTP/HTTPS Alternate     | Low         |
+| (plus any open UPnP)      |          |             | Variable    |
+
+- For each discovered open port, display:
+  - **Port number & protocol**
+  - **Service name**
+  - **Risk category** (High, Medium, Low), with:
+    - Red box for high risk
+    - Orange for medium
+    - Green for low/standard
+  - **Short paragraph** explaining why the port is considered risky, neutral, or safe.
+  - **“Learn more” button**: links to a trusted, international cybersecurity organization (e.g., OWASP, SANS) with an article or reference about the port/service.
+  - **“How to close port” button**: triggers a universal pop-up guide explaining:
+    - Where port configuration is typically found (Windows Firewall, Linux iptables/UFW, router interface/UPnP controls)
+    - How to identify your router model
+    - How to look up online manuals or seek vendor support (no specific ISP links)
+- Include an **easy-to-use filtering system** for visible ports by their risk level.
+
+**User Interface:**
+- **Dark mode** by default: background in dark grey or black, UI highlights and interactive elements in turquoise blue for clarity.
+- **Minimalist, modern dashboard**: All ports displayed as responsive, info-rich “boxes” per the color coding, with search and risk filters always accessible.
+- Boxes must show port/service name, state (open/closed), risk summary, and action buttons (“Learn more” / “How to close port”) at a glance.
+- **Accessibility:** High-contrast elements, clear icons and type, concise layout.
+
+**Localization and Documentation:**
+- All interface text organized in structured, easily extensible files for each supported language.
+- All help content, guides, and pop-ups provided in both English and Spanish.
+- The project must include brief developer and user documentation in both languages.
+
+**Usage and Security Focus:**
+- The app is only meant to run manually—no persistent background scanning or system hooks.
+- All features and information are presented so that non-expert users can understand what is being scanned and why it matters, empowering them to take practical, safe action on their network security.
+
+**Summary:**  
+The app should make scanning and understanding open local and UPnP ports **intuitive, transparent, and actionable** for Windows and Linux users, supporting both English and Spanish. It must provide clear risk categorization, educational guidance, and non-ISP-specific closing instructions, all in a dark, visually appealing and minimalistic dashboard interface[1].
+
+[1] tools.cybersecurity
