@@ -1,4 +1,4 @@
-# Network Port Security Scanner
+# PortScope
 
 A cross-platform desktop application for scanning and educating users about network port security risks with multi-language support.
 
@@ -25,4 +25,4 @@ A cross-platform desktop application for scanning and educating users about netw
 Install the required packages using pip:
 
 ```bash
-pip install requests
+pip install .
