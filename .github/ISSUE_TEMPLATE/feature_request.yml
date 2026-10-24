@@ -1,0 +1,17 @@
+name: Feature or port database request
+description: Suggest a new capability, service entry or translation.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: For a new port, include the service, risk level, MITRE ATT&CK technique IDs and a trustworthy reference.
+    validations:
+      required: true

@@ -1,0 +1,122 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions: {}
+
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require a version tag on main
+        shell: bash
+        run: |
+          [[ "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          if [[ "$(git rev-parse "$GITHUB_SHA^{commit}")" != "$(git rev-parse refs/remotes/origin/main)" ]]; then
+            echo "The tag must point to the current main commit." >&2
+            exit 1
+          fi
+          python - <<'PY'
+          import ast
+          import os
+          from pathlib import Path
+
+          tree = ast.parse(Path("portscope/__init__.py").read_text(encoding="utf-8"))
+          versions = [
+              node.value.value
+              for node in tree.body
+              if isinstance(node, ast.Assign)
+              and any(isinstance(target, ast.Name) and target.id == "__version__" for target in node.targets)
+              and isinstance(node.value, ast.Constant)
+              and isinstance(node.value.value, str)
+          ]
+          if len(versions) != 1 or os.environ["GITHUB_REF_NAME"] != "v" + versions[0]:
+              raise SystemExit("Release tag and package version differ")
+          PY
+
+  build:
+    needs: verify
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            asset: portscope-windows-x64.exe
+          - os: ubuntu-22.04
+            asset: portscope-linux-x64.tar.gz
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: Install hash-locked build tools
+        run: 'python -m pip install --require-hashes --only-binary=:all: -r .github/build-requirements.txt'
+      - run: python -m unittest
+      - run: python -m PyInstaller --onefile --name portscope --collect-data portscope packaging/entry.py
+      - name: Smoke-test executable and package it
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            binary="dist/portscope.exe"
+          else
+            binary="dist/portscope"
+          fi
+          "$binary" --version
+          "$binary" --cli --no-upnp --no-history > /dev/null
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            mv "$binary" "dist/portscope-windows-x64.exe"
+          else
+            tar -czf "dist/portscope-linux-x64.tar.gz" -C dist portscope
+          fi
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ${{ matrix.asset }}
+          path: dist/${{ matrix.asset }}
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Create SHA-256 manifest
+        working-directory: dist
+        run: sha256sum portscope-* > SHA256SUMS.txt
+      - uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: dist/portscope-*
+      - name: Publish release with installation instructions
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1 \
+            || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" \
+              --verify-tag --draft --title "PortScope $TAG" --notes-file RELEASE_NOTES.md
+          gh release upload "$TAG" dist/* --repo "$GITHUB_REPOSITORY" --clobber
+          gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false

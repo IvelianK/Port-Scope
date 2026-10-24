@@ -1,0 +1,54 @@
+name: Bug report
+description: Something in PortScope does not work as documented.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Security vulnerabilities must be reported privately: use the link on the previous screen.
+        Remove public IP addresses, hostnames and process names you do not want to share before posting output.
+  - type: input
+    id: version
+    attributes:
+      label: PortScope version
+      description: Output of `portscope --version`
+      placeholder: portscope 2.0.2
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: How do you run it?
+      options:
+        - Windows executable from Releases
+        - Linux executable from Releases
+        - From source (python -m portscope)
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: Windows 11 23H2 / Ubuntu 24.04
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run `portscope --cli --no-upnp`
+        2. ...
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Relevant output (redacted)
+      render: text

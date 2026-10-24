@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>PortScope</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/app.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#findings" data-i18n="skip">Skip to findings</a>
+
+<header class="topbar">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><circle cx="16" cy="16" r="7"/><path d="M16 16 L27 9"/></svg>
+    <span class="name">Port<b>Scope</b></span>
+    <span class="ver" id="version"></span>
+  </div>
+  <div class="actions">
+    <label class="toggle"><input type="checkbox" id="opt-upnp" checked> <span data-i18n="opt_upnp">Router & LAN (UPnP)</span></label>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+    <button type="button" class="btn primary" id="scan"><span class="dot" aria-hidden="true"></span><span data-i18n="scan">Scan now</span></button>
+    <button type="button" class="btn ghost" id="quit" data-i18n="quit">Quit</button>
+  </div>
+</header>
+
+<main>
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+
+  <section class="intro" id="intro">
+    <div class="radar" aria-hidden="true"><span></span></div>
+    <h1 data-i18n="intro_title">What can the network see of this machine?</h1>
+    <p data-i18n="intro_body">PortScope lists every port your computer is listening on, who opened it, and whether your router is forwarding it to the Internet via UPnP. Nothing leaves your network.</p>
+  </section>
+
+  <section class="overview" id="overview" hidden>
+    <article class="panel score" aria-labelledby="score-h">
+      <h2 id="score-h" class="label" data-i18n="score">Exposure score</h2>
+      <div class="dial">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="track" cx="60" cy="60" r="52"/><circle class="value" id="dial" cx="60" cy="60" r="52"/></svg>
+        <div class="grade"><b id="grade">-</b><span id="score-num"></span></div>
+      </div>
+      <div class="score-side">
+        <ul class="legend" id="legend"></ul>
+        <div class="bar" id="sevbar" aria-hidden="true"></div>
+      </div>
+    </article>
+
+    <article class="panel" aria-labelledby="fw-h">
+      <h2 id="fw-h" class="label" data-i18n="firewall">Host firewall</h2>
+      <p class="big" id="fw-state"></p>
+      <p class="muted mono" id="fw-detail"></p>
+      <p class="muted" id="fw-note"></p>
+    </article>
+
+    <article class="panel" aria-labelledby="gw-h">
+      <h2 id="gw-h" class="label" data-i18n="gateway">Router (UPnP)</h2>
+      <div id="gw"></div>
+    </article>
+  </section>
+
+  <section class="diff" id="diff" hidden></section>
+
+  <section class="findings-wrap" id="findings-wrap" hidden>
+    <div class="toolbar">
+      <div class="search">
+        <label for="q" class="sr" data-i18n="search">Search</label>
+        <input id="q" type="search" autocomplete="off" spellcheck="false" data-i18n-placeholder="search_ph" placeholder="Port, service or process…">
+      </div>
+      <div class="chips" id="sev-chips" role="group" aria-label="Severity"></div>
+      <div class="chips" id="exp-chips" role="group" aria-label="Exposure"></div>
+    </div>
+    <h2 class="sr" data-i18n="findings">Findings</h2>
+    <div class="grid" id="findings"></div>
+    <p class="empty" id="empty" hidden data-i18n="no_match">Nothing matches these filters.</p>
+  </section>
+
+  <section class="devices" id="devices-wrap" hidden>
+    <h2 class="label" data-i18n="devices">UPnP devices on your LAN</h2>
+    <ul id="devices"></ul>
+  </section>
+</main>
+
+<footer class="foot" id="foot" hidden>
+  <span id="generated"></span>
+  <span class="spacer"></span>
+  <button type="button" class="btn ghost" id="export" data-i18n="export">Export JSON</button>
+  <button type="button" class="btn ghost" id="print" data-i18n="print">Print / PDF</button>
+</footer>
+
+<dialog id="guide" aria-labelledby="guide-title">
+  <form method="dialog" class="guide-head">
+    <h2 id="guide-title"></h2>
+    <button class="btn ghost icon" value="close" data-i18n-aria="close" aria-label="Close">✕</button>
+  </form>
+  <p class="guide-lead" id="guide-lead"></p>
+  <div class="tabs" role="group" id="guide-tabs"></div>
+  <div id="guide-body"></div>
+  <p class="warn" data-i18n="guide_warn">Before closing a port, make sure nothing you rely on needs it. Every block command comes with its undo.</p>
+</dialog>
+</body>
+</html>

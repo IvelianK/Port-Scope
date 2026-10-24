@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "portscope"
+dynamic = ["version"]
+description = "See which ports your machine and your router expose, why it matters, and how to close them."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+dependencies = []
+keywords = ["security", "port-scanner", "upnp", "network", "hardening", "blue-team"]
+classifiers = [
+    "Environment :: Web Environment",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: System Administrators",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+    "Topic :: System :: Networking :: Monitoring",
+]
+
+[project.urls]
+Homepage = "https://github.com/IvelianK/Port-Scope"
+Issues = "https://github.com/IvelianK/Port-Scope/issues"
+
+[project.scripts]
+portscope = "portscope.__main__:main"
+
+[tool.setuptools]
+packages = ["portscope"]
+
+[tool.setuptools.dynamic]
+version = { attr = "portscope.__version__" }
+
+[tool.setuptools.package-data]
+portscope = ["data/*.json", "web/*.html", "web/*.js", "web/*.css", "web/*.svg", "web/i18n/*.json"]
